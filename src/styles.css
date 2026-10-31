@@ -1,0 +1,109 @@
+@import 'tailwindcss' source('../');
+
+@theme {
+  --color-carbon: #0a0a0d;
+  --color-asphalt: #15151b;
+  --color-kerb: #e10600;
+  --color-kerb-dark: #a30400;
+  --color-mist: #9a9aa6;
+  --font-display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --font-sans: 'Titillium Web', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-carbon);
+  color: #f4f4f6;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-kerb);
+  color: white;
+}
+
+/* Red/white kerb stripe used as a section divider */
+.kerb {
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-kerb) 0 28px,
+    #f4f4f6 28px 56px
+  );
+}
+
+/* Faint carbon-fibre weave for panels */
+.weave {
+  background-color: var(--color-asphalt);
+  background-image:
+    linear-gradient(45deg, rgb(255 255 255 / 0.025) 25%, transparent 25%),
+    linear-gradient(-45deg, rgb(255 255 255 / 0.025) 25%, transparent 25%);
+  background-size: 6px 6px;
+}
+
+.eyebrow {
+  @apply font-mono text-xs uppercase tracking-[0.3em] text-kerb;
+}
+
+.headline {
+  @apply font-display font-black uppercase leading-[0.85] tracking-tight;
+}
+
+.action {
+  @apply inline-flex items-center gap-3 bg-kerb px-7 py-4 font-display text-lg font-extrabold uppercase tracking-wider text-white transition hover:bg-kerb-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white disabled:cursor-wait;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+}
+
+.action-ghost {
+  @apply inline-flex items-center gap-3 border border-white/30 px-7 py-4 font-display text-lg font-extrabold uppercase tracking-wider text-white transition hover:border-white hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white;
+}
+
+.form-label {
+  @apply mb-2 block font-mono text-xs uppercase tracking-[0.2em] text-mist;
+}
+
+.form-input {
+  @apply w-full border-0 border-b-2 border-white/20 bg-white/5 px-4 py-3 text-white placeholder:text-white/30 focus:border-kerb focus:outline-none;
+}
+
+.form-input option {
+  background: var(--color-asphalt);
+}
+
+@keyframes lights {
+  0%,
+  15% {
+    background: #2a0a0a;
+    box-shadow: none;
+  }
+  20%,
+  85% {
+    background: var(--color-kerb);
+    box-shadow: 0 0 18px var(--color-kerb);
+  }
+  100% {
+    background: #2a0a0a;
+    box-shadow: none;
+  }
+}
+
+.start-light {
+  @apply size-4 rounded-full bg-[#2a0a0a];
+  animation: lights 5s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .start-light {
+    animation: none;
+    background: var(--color-kerb);
+  }
+}
